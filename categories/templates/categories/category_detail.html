@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% load render_video %}
+
+{% block seodesc %}{{ object.seodesc }}{% endblock seodesc %}
+{% block title %}{{ object.title }}{% endblock title %}
+{% block seokw %}{{ object.seokw }}{% endblock seokw %}
+{% block DCtype %}interactive resource{% endblock DCtype %}
+{% block url %}{% endblock %}
+{% block OGtype %}video.other{% endblock OGtype %}
+
+{% block content %}
+    <h1><small>Категория: </small>{{ object.title }} {% if courses.count > 1 %}<small>({{ courses.count }}{% if courses.count == 1 %} курс{% endif %}{% if courses.count == 2 or 3 or 4 %} курса{% else %}курсов{% endif %})</small>{% endif %}</h1>
+    <div class='row'>
+        <div class='col-md-6 col-sm-12'>
+            {% render_video object.video %}
+        </div>
+        <div class='col-md-6 col-sm-12'>
+            {{ object.description }}
+        </div>
+    
+    
+    </div>
+    <div class='row'>
+    {% for item in object.category.all %}
+        
+        <div class='col-md-4 col-sm-12'>
+        {% include 'courses/snippets/course_thumbnail_display.html' with course=item %}
+        </div>
+
+        {% cycle '' '' '</div><div class="row">' %}
+    {% endfor %}
+    </div>
+{% endblock %}

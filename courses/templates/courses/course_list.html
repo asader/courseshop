@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+
+{% block seodesc %}Все курсы сайта{% endblock seodesc %}
+{% block title %}Список курсов{% endblock title %}
+{% block seokw %}object.seokw{% endblock seokw %}
+{% block DCtype %}interactive resource{% endblock DCtype %}
+{% block url %}{% endblock %}
+{% block OGtype %}video.other{% endblock OGtype %}
+
+
+{% block content %}
+    <h1>Курсы</h1>
+    <div class='row'>
+        {% for course in object_list %}
+            <div class='col-md-4 col-sm-12'>
+                {% include 'courses/snippets/course_thumbnail_display.html' %}
+            </div>
+                
+
+            {% if forloop.counter|divisibleby:3 %}
+                </div><div class="row">
+            {% endif %}
+
+                
+        {% empty %}
+            <p class='lead'>Ничего не найдено</p>
+        {% endfor %}
+        </div>
+    
+
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+        {% if page_obj.has_previous %}
+        {% if page_obj.previous_page_number > 1 %}
+           <li> <a href='{% url "courses:list" %}?page=1'><span aria-hidden="true">&laquo;</span></a></li>
+        {% endif %}
+
+        <li><a href='{% url "courses:list" %}?page={{ page_obj.previous_page_number }}'>Сюда</a></li>
+
+        {% if page_obj.previous_page_number > 1 %}
+         <li><a href='{% url "courses:list" %}?page={{ page_obj.previous_page_number }}'>{{ page_obj.previous_page_number }}</a></li>
+         {% endif %}
+
+
+    {% endif %}
+    
+     <li class='active'><a href='#'>{{ page_obj.number }}</a></li>
+    {% if page_obj.has_next %}
+            {% if page_obj.paginator.num_pages > page_obj.next_page_number %}
+            <li><a href='{% url "courses:list" %}?page={{ page_obj.next_page_number }}'>{{ page_obj.next_page_number }}</a></li>
+            {% endif %}
+           <li><a href='{% url "courses:list" %}?page={{ page_obj.next_page_number }}'>Туда</a></li>
+
+           {% if page_obj.paginator.num_pages > page_obj.next_page_number %}
+            <li> <a href='{% url "courses:list" %}?page={{ page_obj.paginator.num_pages }}'><span aria-hidden="true">&raquo;</span></a></li>
+            {% endif %}
+    {% endif %}
+  </ul>
+</nav>
+    
+{% endblock content %}

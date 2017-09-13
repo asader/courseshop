@@ -1,0 +1,37 @@
+{% load search_form %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="{% block seodesc %}{% endblock seodesc %}" />
+<meta name="keywords" content="{% block seokw %}{% endblock seokw %}">
+<title>{% block title %}{% endblock title %}</title>
+
+
+<meta name="DC.type" content="{% block DCtype %}interactive resource{% endblock DCtype %}" />
+<meta name="DC.identifier" content="{% block url %}{% endblock %}" />
+<meta name="DC.language" content="ru-RU"/>
+<meta name="DC.coverage" content="Russia" />
+<meta name="DC.rights" content="online-mpi all right reserved" />
+<!--Open Graph-->
+<meta property="og:image" content="{% block imgurl %}{% endblock %}">
+<meta property="og:type" content="{% block OGtype %}{% endblock OGtype %}"/>
+
+    {% include 'defaults/head.html' %}
+  </head>
+  <body>
+    
+    <div class='container'>
+    {% include 'navbar.html' %}
+      {% block content %}
+      {% endblock content %}
+    </div>
+
+    
+   {% include 'defaults/scripts.html' %}
+
+  </body>
+</html>

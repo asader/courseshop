@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block seodesc %}Список категорий курсов{% endblock seodesc %}
+{% block seokw %}Категории, видео{% endblock seokw %}
+{% block title %}Список категорий{% endblock title %}
+{% block DCtype %}interactive resource{% endblock DCtype %}
+{% block url %}{% endblock %}
+{% block OGtype %}video.other{% endblock OGtype %}
+
+{% block content %}
+    <h1>Категории</h1>
+
+    <div class="row">
+    <div class='col-md-4 col-sm-12'>
+    
+    {% for item in object_list %}
+        <a href="{{ item.get_absolute_url }}" class="list-group-item">
+                {{ item.title }}
+
+                {% if item.courses_length > 0 %}
+                <span class="badge">{{ item.courses_length }} Course{% if courses_length > 1 %}s{% endif %}</span>
+                {% endif %}
+
+
+                {% if item.category.all.exists %}
+                <span class="badge">{{ item.category.all.count }}</span>
+                {% endif %}
+        </a>
+        {% if forloop.counter|divisibleby:5 %}
+                </div></div><div class="col-md-4 col-sm-12"><div class="list-group">
+
+        {% endif %}
+    {% endfor %}
+    </div>
+    </div>
+
+{% endblock %}

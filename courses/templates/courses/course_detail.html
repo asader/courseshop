@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block seodesc %}{{ object.seodesc }}{% endblock seodesc %}
+{% block title %}{{ object.title }}{% endblock title %}
+{% block seokw %}{{ object.seokw }}{% endblock seokw %}
+{% block imgurl %}{{ object.image }}{% endblock %}
+{% block DCtype %}interactive resource{% endblock DCtype %}
+{% block url %}{% endblock %}
+{% block OGtype %}video.other{% endblock OGtype %}
+
+
+
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'courses:list' %}">Курсы</a></li>
+  <li class="active">{{ object.title }}</li>
+</ol>
+
+<div class='row'>
+    <div class='col-sm-6 col-sm-offset-3'>
+
+     <div class='row'>
+    <div class='col-sm-12'>
+    {% if object.image %}
+    <img src='{{ object.image.url }}' class='img-responsive'>
+    {% endif %}
+
+    <h1>{{ object.title }}</h1>
+
+       
+    {{ object.description|linebreaks }}
+     {% if not object.is_owner and not object.free %}
+        <form action="{{ course.get_purchase_url }}">
+            <p><input type="text">Номер карты</p>
+            <p><input type="submit">Купить за {{ course.display_price }}</p>
+        </form>
+    {% endif %}
+    </div>
+
+    </div>
+
+    <div class='row'>
+    <div class='col-sm-12'>
+    <h3>Лекции:</h3>
+    {% for item in object.lecture_set.all %}
+    <div class="list-group">
+        <a class="list-group-item lead"  href='{{ item.get_absolute_url }}'>{{ item.title }} {% if item.free %}<small>(бесплатный просмотр)</small>{% endif %}</a>
+    
+    {% empty %}
+        <p class='lead'>Лекции скоро появятся</p>
+    </div>
+    {% endfor %}
+    </div>
+    </div>
+
+</div>
+</div>
+{% endblock content %}

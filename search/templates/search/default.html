@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% load search_form %}
+
+{% block content %}
+
+<div class='row'>
+<div class='col-sm-4 col-sm-offset-4'>
+<h1>Поиск</h1>
+{% search_form request False %}
+</div>
+</div>
+{% if request.GET.q %}
+<div class='row'>
+
+<h2>Результаты поиска "{{ request.GET.q }}"</h2>
+
+{% if course_qs %}
+<h3>Найдены курсы:</h3>
+{% endif %}
+{% for course in course_qs %}
+    {% include 'search/snippets/courses.html' %}
+{% endfor %}
+
+{% if lec_qs %}
+<h3>Найдены уроки:</h3>
+{% endif %}
+
+<div class="list-group">
+{% for item in lec_qs %}
+    <a class="list-group-item lead"  href='{{ item.get_absolute_url }}'>{{ item.title }}
+        {% if item.free %}<small>Free Preview</small>{% endif %}</a>
+{% endfor %}
+</div>
+
+{% if cat_qs %}
+<h3>Найдены категории:</h3>
+{% endif %}
+{% for item in cat_qs %}
+{% include 'search/snippets/category.html' %}
+{% endfor %}
+
+</div>
+{% endif %}
+
+{% endblock %}

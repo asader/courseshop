@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% load render_video %}
+{% load static %}
+
+{% block seodesc %}{{ object.seodesc }}{% endblock seodesc %}
+{% block title %}{{ object.title }}{% endblock title %}
+{% block seokw %}{{ object.seokw }}{% endblock seokw %}
+{% block imgurl %}{{ object.image }}{% endblock %}
+{% block url %}{{ object.get_absolute_url }}{% endblock %}
+{% block DCtype %}interactive resource{% endblock DCtype %}
+{% block OGtype %}video.other{% endblock OGtype %}
+
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'courses:list' %}">Курсы</a></li>
+  <li><a href="{{ object.course.get_absolute_url }}">{{ object.course.title }}</a></li>
+  <li class="active">{{ object.title }}</li>
+</ol>
+<div class='row'>
+    <div class='col-sm-6 col-sm-offset-3'>
+    <h1>{{ object.title }}</h1>
+
+    {% render_video object.video %}
+    
+     <p>{{ object.updated }}</p>
+    <p>{{ object.description }}</p>
+
+</div>
+</div>
+
+{% endblock content %}

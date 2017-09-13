@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>Курсы</h1>
+   <div class='row'>
+    {% for item in qs %}
+        <div class='col-sm-4'>
+        {% include 'courses/snippets/course_thumbnail_display.html' with course=item %}
+        </div>
+        {% cycle '' '' '</div><div class="row">' %}
+    {% endfor %}
+    </div>
+
+
+{% endblock content %}
+
+
+

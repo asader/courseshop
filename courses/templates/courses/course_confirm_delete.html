@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %}Подтвердите удаление {{ object.title }}{% endblock title %}
+
+
+{% block content %}
+<div class='row'>
+    <div class='col-sm-6 col-sm-offset-3'>
+    <form method='POST' action=''>{% csrf_token %}
+        <p>Вы уверены что хотите удалить <b>{{ object.title }}</b>?</p>
+        <input type='submit' value='Да' class='btn btn-default' />
+        <a href='{{ object.get_absolute_url }}'>Cancel</a>
+    </form>
+</div>
+</div>
+
+{% endblock content %}
